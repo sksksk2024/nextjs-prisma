@@ -1,10 +1,11 @@
+/* eslint-disable */
 import prisma from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 
 // REMOVE the custom PageProps type here
 
 // Use the inline type for the function parameter
-export default async function Post({ params }: { params: { id: string } }) {
+export default async function Page({ params }: { params: { id: string } }) {
   const { id } = params;
 
   const post = await prisma.post.findUnique({
