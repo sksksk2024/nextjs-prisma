@@ -1,5 +1,4 @@
 /* eslint-disable */
-'use client';
 import { getPostById } from '@/lib/prismaHelpers';
 import { notFound } from 'next/navigation';
 
