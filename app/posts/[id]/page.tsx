@@ -2,11 +2,11 @@ import prisma from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 
 // params is the id fromt the dynamic route naming: [id] = "1"
-interface PostPageProps {
+interface Params {
   params: { id: string };
 }
 
-export default async function Post({ params }: PostPageProps) {
+export default async function Post({ params }: Params) {
   const { id } = params;
 
   const post = await prisma.post.findUnique({
