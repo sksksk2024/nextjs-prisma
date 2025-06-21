@@ -1,14 +1,14 @@
-import prisma from '@/lib/prisma';
-import { revalidatePath } from 'next/cache';
-import Form from 'next/form';
-import { redirect } from 'next/navigation';
+import prisma from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
+import Form from "next/form";
+import { redirect } from "next/navigation";
 
 export default function NewPost() {
   async function createPost(formData: FormData) {
-    'use server';
+    "use server";
 
-    const title = formData.get('title') as string;
-    const content = formData.get('content') as string;
+    const title = formData.get("title") as string;
+    const content = formData.get("content") as string;
 
     await prisma.post.create({
       data: {
@@ -18,8 +18,8 @@ export default function NewPost() {
       },
     });
 
-    revalidatePath('/posts');
-    redirect('/posts');
+    revalidatePath("/posts");
+    redirect("/posts");
   }
 
   return (

@@ -1,4 +1,4 @@
-import prisma from '@/lib/prisma';
+import prisma from "@/lib/prisma";
 
 export default async function Posts() {
   const posts = await prisma.post.findMany({
@@ -15,7 +15,7 @@ export default async function Posts() {
       <ul className="font-[family-name:var(--font-geist-sans)] max-w-2xl space-y-4">
         {posts.map((post) => (
           <li key={post.authorId} className="text-black">
-            {post.title}{' '}
+            {post.title}{" "}
             <span className="border border-red-400">by {post.author.name}</span>
           </li>
         ))}
