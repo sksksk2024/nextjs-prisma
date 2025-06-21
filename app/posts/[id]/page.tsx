@@ -1,5 +1,6 @@
 /* eslint-disable */
-import prisma from '@/lib/prisma';
+'use client';
+import { getPostById } from '@/lib/prismaHelpers';
 import { notFound } from 'next/navigation';
 
 // REMOVE the custom PageProps type here
@@ -8,14 +9,7 @@ import { notFound } from 'next/navigation';
 export default async function Page({ params }: { params: { id: string } }) {
   const { id } = params;
 
-  const post = await prisma.post.findUnique({
-    where: {
-      id: parseInt(id),
-    },
-    include: {
-      author: true,
-    },
-  });
+  const post = await getPostById(id);
 
   if (!post) {
     notFound();

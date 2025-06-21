@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  allowedDevOrigins: ['http://192.168.100.20:3000'],
 };
 
 export default nextConfig;
