@@ -1,30 +1,32 @@
-/* eslint-disable */
 import { getPostById } from '@/lib/prismaHelpers';
 import { notFound } from 'next/navigation';
 
-// REMOVE the custom PageProps type here
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 
-// Use the inline type for the function parameter
-export default async function Page({ params }: { params: { id: string } }) {
-  const { id } = params;
+// Next.js expects params?: Promise<{ id: string }>
+type PageProps = {
+  params?: Promise<{ id: string }>;
+};
 
-  const post = await getPostById(id);
+export default async function Page(props: PageProps) {
+  let id: string | undefined;
 
-  if (!post) {
-    notFound();
+  if (props.params) {
+    const resolved = await props.params;
+    id = resolved.id;
   }
 
+  if (!id) notFound();
+
+  const post = await getPostById(id);
+  if (!post) notFound();
+
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center -mt-16">
-      <article className="max-w-2xl space-y-4 font-[family-name:var(--font-geist-sans)]">
-        <h1 className="text-4xl font-bold mb-8 text-[#333333]">{post.title}</h1>
-        <p className="text-gray-600 text-center text-black">
-          by {post.author.name}
-        </p>
-        <div className="prose prose-gray mt-8 text-black">
-          {post.content || 'No content available'}
-        </div>
-      </article>
-    </div>
+    <article>
+      <h1>{post.title}</h1>
+      <p>by {post.author.name}</p>
+      <div>{post.content}</div>
+    </article>
   );
 }
