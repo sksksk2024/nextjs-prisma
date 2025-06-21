@@ -1,4 +1,3 @@
-'use client';
 import { createPost } from '@/lib/prismaHelpers';
 import { revalidatePath } from 'next/cache';
 import Form from 'next/form';
