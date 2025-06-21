@@ -1,13 +1,9 @@
-import prisma from "@/lib/prisma";
-import { notFound } from "next/navigation";
+import prisma from '@/lib/prisma';
+import { notFound } from 'next/navigation';
 
 // params is the id fromt the dynamic route naming: [id] = "1"
-export default async function Post({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
+export default async function Post({ params }: { params: { id: string } }) {
+  const { id } = params;
 
   const post = await prisma.post.findUnique({
     where: {
@@ -30,7 +26,7 @@ export default async function Post({
           by {post.author.name}
         </p>
         <div className="prose prose-gray mt-8 text-black">
-          {post.content || "No content available"}
+          {post.content || 'No content available'}
         </div>
       </article>
     </div>
