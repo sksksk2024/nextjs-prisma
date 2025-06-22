@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 
 export default function NewPost() {
   const createPostHandler = async (formData: FormData) => {
+    'use server';
     const title = formData.get('title') as string;
     const content = formData.get('content') as string;
     await createPost(title, content, 2);
