@@ -4,18 +4,19 @@ import { notFound } from 'next/navigation';
 export const dynamic = 'force-dynamic';
 export const dynamicParams = true;
 
-// Next.js expects params?: Promise<{ id: string }>
-type PageProps = {
-  params?: Promise<{ id: string }>;
-};
+// function generateStaticParams() {}
 
-export default async function Page(props: PageProps) {
-  let id: string | undefined;
+// Correct type: params is a plain object, not a Promise
+// type PageProps = {
+//   params: Promise<{ id: string }>
+// };
 
-  if (props.params) {
-    const resolved = await props.params;
-    id = resolved.id;
-  }
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
 
   if (!id) notFound();
 
